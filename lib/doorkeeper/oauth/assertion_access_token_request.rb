@@ -4,7 +4,6 @@ module Doorkeeper
   module OAuth
     class AssertionAccessTokenRequest
       include Validations
-      include OAuth::RequestConcern
       include OAuth::Helpers
 
       attr_accessor :server, :original_scopes
