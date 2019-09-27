@@ -2,7 +2,7 @@ require 'doorkeeper/oauth/describable_error_response'
 
 module Doorkeeper
   module OAuth
-    class AssertionAccessTokenRequest
+    class AssertionAccessTokenRequest < BaseRequest
       include Validations
       include OAuth::Helpers
 
@@ -117,7 +117,7 @@ module Doorkeeper
       def validate_scopes
         @original_scopes = @original_scopes || server.jwt['scope']
         return true unless @original_scopes
-        ScopeChecker.valid? @original_scopes, configuration.scopes, client.try(:scopes)
+        ScopeChecker.valid?(scope_str: @original_scopes, server_scopes: configuration.scopes, app_scopes: client.try(:scopes))
       end
 
       def validate_resource_owner
